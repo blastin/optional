@@ -14,3 +14,9 @@ jobs:
           architecture: x64
       - name: Testar
         run: ./mvnw clean test
+      - name: Deploy to Github Package Registry
+          env:
+            GITHUB_USERNAME: x-access-token
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run:
+            mvn --settings .github/settings.xml deploy
