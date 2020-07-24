@@ -22,11 +22,11 @@ public final class JOptional<J> {
     }
 
     @SuppressWarnings("unchecked")
-    public static <S> JOptional<S> nulo() {
-        return (JOptional<S>) JOPTIONAL_NULO;
+    public static <J> JOptional<J> nulo() {
+        return (JOptional<J>) JOPTIONAL_NULO;
     }
 
-    public JOptional(final J j) {
+    private JOptional(final J j) {
         this.j = j;
     }
 
@@ -67,7 +67,7 @@ public final class JOptional<J> {
         return !presente();
     }
 
-    public <X extends Throwable> JOptional<J> ouExcessao(final Provedor<? extends X> provedor) throws X {
+    public <T extends Throwable> JOptional<J> ouExcessao(final Provedor<? extends T> provedor) throws T {
 
         Objects.requireNonNull(provedor);
 

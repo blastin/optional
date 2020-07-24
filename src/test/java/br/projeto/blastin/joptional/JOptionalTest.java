@@ -11,44 +11,58 @@ class JOptionalTest {
 
     @Test
     void criarJOptionalComObjetoNulo() {
+
         Assertions
                 .assertThrows(NullPointerException.class, () -> JOptional.de(null));
+
     }
 
     @Test
     void objetoComPredicadoFalso() {
+
         Assertions
-                .assertFalse(JOptional.de(1).filtro(integer -> integer > 2).presente());
+                .assertTrue(JOptional.de(1).filtro(integer -> integer > 2).vazio());
+
     }
 
     @Test
     void objetoComPredicadoVerdadeiro() {
+
         Assertions
                 .assertTrue(JOptional.de(10).filtro(integer -> integer > 5).presente());
+
     }
 
     @Test
     void inteiroParaDouble() {
+
         Assertions
                 .assertEquals(Double.class, JOptional.de(0).mapeado(integer -> integer + 0.0).obter().getClass());
+
     }
 
     @Test
     void mapeandoDeObjetoNulo() {
+
         Assertions
                 .assertThrows(NoSuchElementException.class, () -> JOptional.dePossivelNulo(null).mapeado(o -> "").obter());
+
     }
 
     @Test
     void gerandoExcessao() {
+
         Assertions
                 .assertThrows(RuntimeException.class, () -> JOptional.dePossivelNulo(null).ouExcessao(RuntimeException::new));
+
     }
 
     @Test
     void ignorandoExcessao() {
+
         Assertions
                 .assertDoesNotThrow(() -> JOptional.de("123s").ouExcessao(RuntimeException::new));
+
     }
 
     @Test
