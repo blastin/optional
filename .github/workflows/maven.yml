@@ -12,11 +12,9 @@ jobs:
         with:
           java-version: 14
           architecture: x64
-      - name: Testar
-        run: mvn clean test
       - name: Deploy to Github Package Registry
         env:
           GITHUB_USERNAME: x-access-token
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:
-          mvn deploy
+          mvn -s .github/settings.xml deploy
