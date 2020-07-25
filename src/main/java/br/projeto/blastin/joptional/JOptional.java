@@ -62,7 +62,6 @@ public final class JOptional<J> {
 
     }
 
-
     public boolean vazio() {
         return !presente();
     }
