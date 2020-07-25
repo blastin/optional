@@ -45,7 +45,7 @@ class JOptionalTest {
     void mapeandoDeObjetoNulo() {
 
         Assertions
-                .assertThrows(NoSuchElementException.class, () -> JOptional.dePossivelNulo(null).mapeado(o -> "").obter());
+                .assertThrows(NoSuchElementException.class, JOptional.dePossivelNulo(null).mapeado(o -> "")::obter);
 
     }
 
@@ -99,7 +99,7 @@ class JOptionalTest {
         final AtomicBoolean status = new AtomicBoolean(false);
 
         JOptional
-                .dePossivelNulo(null)
+                .nulo()
                 .seNaoPresente(() -> status.set(true))
                 .sePresente(o -> status.set(false));
 
@@ -151,15 +151,17 @@ class JOptionalTest {
     @Test
     void complexo() {
 
+        final AtomicInteger valor = new AtomicInteger(0);
+
         final Integer saida =
 
                 JOptional
                         .de(200)
                         .filtro(numero -> numero < 2000)
-                        .seNaoPresente(() -> System.out.println("numero maior que 2000"))
+                        .seNaoPresente(valor::incrementAndGet)
                         .mapeado(String::valueOf)
                         .filtro(s -> s.startsWith("2"))
-                        .seNaoPresente(() -> System.out.println(" numero nao começa com a letra 2"))
+                        .seNaoPresente(valor::incrementAndGet)
                         .mapeado(s -> s.replace("0", "1"))
                         .mapeado(Integer::parseInt)
                         .ouExcessao(NoSuchElementException::new)
@@ -167,6 +169,9 @@ class JOptionalTest {
 
         Assertions
                 .assertEquals(211, saida);
+
+        Assertions
+                .assertEquals(0, valor.get());
 
     }
 }

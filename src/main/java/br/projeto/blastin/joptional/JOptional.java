@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
- * @author lisboa.jeff@gmail.com < Jefferson Lisboa >
+ * @author Jefferson Lisboa <lisboa.jeff@gmail.com>
  * <p>
  * @implNote JOptonal é uma releitura da biblioteca Optional,
  * o qual inclui algumas novas operações
